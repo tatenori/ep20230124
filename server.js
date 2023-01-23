@@ -1,10 +1,13 @@
-const http = require('http');
+import express from "express";
+import http from 'http';
 
-http.createServer(function (request, response) {
-   target = process.env.TARGET ? process.env.TARGET : 'World' ;
-   msg = process.env.MSG ? process.env.MSG : 'Hello ' + target + '\n';
-   response.writeHead(200, {'Content-Type': 'text/plain'});
-   response.end(msg);
-}).listen(8080);
+const app = express();
 
-console.log('Server running at http://0.0.0.0:8080/');
+app.get('/hello',(req,res)=>{
+  res.send("hello server");
+});
+
+const webServer = http.createServer(app);
+webServer.listen(3000,()=>{
+  console.log("server running PORT:"+3000);
+});
